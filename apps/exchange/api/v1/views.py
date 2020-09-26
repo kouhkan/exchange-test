@@ -1,15 +1,21 @@
 from apps.exchange.models import Exchange
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import ExchangeSerializer
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
+
+from .serializers import ExchangeSerializer
 
 
 @api_view(['GET'])
 def exchange_list(request):
-    exchanges = Exchange.active.all()
-    serializer = ExchangeSerializer(exchanges, many=True)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
+    paginator = PageNumberPagination()
+    paginator.page_size = 25
+    exchange_items = Exchange.active.all()
+    result_page = paginator.paginate_queryset(exchange_items, request)
+
+    serializer = ExchangeSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['GET'])
