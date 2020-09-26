@@ -18,27 +18,35 @@ class Exchange(models.Model):
     )
     symbol_code = models.CharField(_("Symbol Code"),
                                    max_length=12,
-                                   unique=True)
+                                   unique=True,
+                                   null=True)
     group = models.CharField(_("Symbol Group"),
                              max_length=2,
-                             choices=GROUP_STATUS)
+                             choices=GROUP_STATUS,
+                             null=True)
     group_industry = models.CharField(_("Group of industries"),
-                                      max_length=128)
+                                      max_length=128,
+                                      null=True)
     board = models.CharField(_("Symbol Board"),
                              max_length=1,
-                             choices=BOARD_STATUS)
+                             choices=BOARD_STATUS,
+                             null=True)
     latin_symbol = models.CharField(_("Latin Symbol"),
                                     max_length=5,
                                     unique=True,
-                                    db_index=True)
+                                    db_index=True,
+                                    null=True)
     latin_name = models.CharField(_("Latin Name"),
-                                  max_length=128)
+                                  max_length=128,
+                                  null=True)
     persian_symbol = models.CharField(_("Persian symbol"),
                                       max_length=24,
                                       unique=True,
-                                      db_index=True)
+                                      db_index=True,
+                                      null=True)
     persian_name = models.CharField(_("Persian name"),
-                                    max_length=64)
+                                    max_length=64,
+                                    null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
@@ -47,4 +55,4 @@ class Exchange(models.Model):
         return f'{self.latin_symbol} - {self.latin_name}'
 
     class Meta:
-        ordering = ('-created', )
+        ordering = ('-created',)
