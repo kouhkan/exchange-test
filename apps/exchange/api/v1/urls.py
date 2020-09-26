@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('index/', views.inedx, name='index'),
+    path('list/', views.exchange_list, name='exchanges_list'),
+    path('detail/<str:code>/', views.exchange_detail, name='exchanges_detail'),
 ]
