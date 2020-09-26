@@ -2,6 +2,12 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
+# Managers
+class ExchangeTrueManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=True)
+
+
 class Exchange(models.Model):
     GROUP_STATUS = (
         ('n1', 'N1'),
@@ -43,8 +49,12 @@ class Exchange(models.Model):
     updated = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
 
+    # Set manager
+    objects = models.Manager()
+    active = ExchangeTrueManager()
+
     def __str__(self):
         return f'{self.symbol_code} | {self.latin_symbol} - {self.latin_name}'
 
     class Meta:
-        ordering = ('-created', )
+        ordering = ('-created',)
