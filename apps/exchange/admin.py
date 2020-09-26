@@ -5,7 +5,7 @@ from .models import Exchange
 @admin.register(Exchange)
 class ExchangeAdmin(admin.ModelAdmin):
     list_display = ('symbol_code', 'group', 'latin_symbol',
-                    'persian_symbol')
+                    'persian_symbol', 'status')
     list_filter = ('group', 'board', 'created', 'status')
     list_editable = ('status', )
     search_fields = ('symbol_code', 'latin_symbol', 'latin_name',
