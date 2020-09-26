@@ -3,6 +3,8 @@ from lxml import html
 
 
 # Data Resource: http://www.tsetmc.com/
+from apps.exchange.models import Exchange
+
 URL = "http://www.tsetmc.com/Loader.aspx?ParTree=111C1417"
 
 page = requests.get(URL)
@@ -16,9 +18,28 @@ latin_name_xpath = text_page.xpath('//*/td[6]/text()')
 persian_symbol_xpath = text_page.xpath('//*/td[7]/a/text()')
 persian_name_xpath = text_page.xpath('//*/td[8]/a/text()')
 
+# for index, item in enumerate(group_xpath[1:], start=3410):
+#     obj = Exchange.objects.get(pk=index)
+#     if item == 'N1':
+#         obj.group = 'n1'
+#         obj.save()
+#     elif item == 'N2':
+#         obj.group = 'n2'
+#         obj.save()
+#     else:
+#         print('wrong')
 
-for i in persian_name_xpath[1:]:
-    print(i)
 
-
-# print('n1' if i == 'N1' else 'N2')
+# for index, item in enumerate(board_xpath[1:], start=3410):
+#     obj = Exchange.objects.get(pk=index)
+#     if item == 'فهرست اوليه':
+#         obj.board = 'f'
+#         obj.save()
+#     elif item == 'تابلو فرعي':
+#         obj.board = 's'
+#         obj.save()
+#     elif item == 'تابلو اصلي':
+#         obj.board = 'm'
+#         obj.save()
+#     else:
+#         print('wrong')
