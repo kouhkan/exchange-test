@@ -10,4 +10,4 @@ class ExchangeAdmin(admin.ModelAdmin):
     list_editable = ('status', )
     search_fields = ('symbol_code', 'latin_symbol', 'latin_name',
                      'persian_symbol', 'persian_name')
-    list_per_page = 20
+    list_per_page = 25
