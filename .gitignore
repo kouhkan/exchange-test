@@ -312,3 +312,4 @@ fabric.properties
 SearchCopy
 
 .idea/
+migrations/
