@@ -1,0 +1,5 @@
+-r ./base.txt
+
+lxml==4.5.2
+psycopg2-binary==2.8.6
+requests==2.24.0
