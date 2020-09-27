@@ -10,6 +10,8 @@ git clone https://github.com/kouhkan/exchange-test.git
 ```shell script
 cd exchange-test
 ``` 
+* Change .env.sample to .env
+
 
 * Execute compose:
 ```shell script
