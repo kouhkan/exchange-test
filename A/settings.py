@@ -101,10 +101,8 @@ MIDDLEWARE = [
 # STATIC
 # ----------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+STATIC_ROOT = ROOT_DIR / 'static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(ROOT_DIR, 'static'),
-)
 
 # TEMPLATES
 # ----------------------------------------------------------------------------
@@ -173,4 +171,7 @@ REST_FRAMEWORK = {
         'anon': '10/minute',
         'user': '2/second'
     },
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 }
