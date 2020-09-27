@@ -9,8 +9,6 @@ COPY requirements/production.txt /app
 
 RUN pip install --no-cache-dir  -r production.txt
 COPY . /app
-EXPOSE 8000
 
-COPY ./docker/python/entrypoint.sh /entrypoint.sh
-ENTRYPOINT["entrypoint.sh"]
-CMD ["gunicorn", "A.wsgi", "-b 0.0.0.0:8000"]
+
+EXPOSE 8000
