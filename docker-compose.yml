@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  python:
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile
+    volumes:
+      - .:/app
+      - static_files:/static
+    ports:
+      - 8000:8000
+    command: gunicorn -w 4 A.wsgi -b 0.0.0.0:8000
+
+  # DB docker compose
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: exchange
+      POSTGRES_DB: exchange1
+      POSTGRES_PASS: exchange
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+
+  # Web server NGINX
+  nginx:
+    image: nginx:latest
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    volumes:
+      - static_files:/static
+    ports:
+      - 8080:80
+
+
+volumes:
+  pgdata:
+  static_files:

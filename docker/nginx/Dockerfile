@@ -1,3 +1,5 @@
 FROM nginx:latest
 
-COPY ./docker/prod/nginx/blog.conf /etc/nginx/conf.d/
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY ./docker/nginx/exchange.conf /etc/nginx/conf.d/
