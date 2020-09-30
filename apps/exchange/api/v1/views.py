@@ -40,13 +40,26 @@ def exchange_create(request):
 
 @api_view(['PUT'])
 def exchange_update(request, code):
-    print(code)
     try:
         get_exchange = Exchange.active.get(symbol_code=code)
     except Exchange.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     serializer = ExchangeSerializer(get_exchange, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(data=serializer.validated_data, status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+def exchange_modify(request, code):
+    try:
+        get_exchange = Exchange.active.get(symbol_code=code)
+    except Exchange.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ExchangeSerializer(get_exchange, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(data=serializer.validated_data, status=status.HTTP_200_OK)
