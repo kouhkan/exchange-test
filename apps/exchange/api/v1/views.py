@@ -28,3 +28,11 @@ def exchange_detail(request, code):
     serialize = ExchangeSerializer(get_exchange)
     return Response(data=serialize.data, status=status.HTTP_200_OK)
 
+
+@api_view(['POST'])
+def exchange_create(request):
+    serializer = ExchangeSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(data=serializer.validated_data, status=status.HTTP_201_CREATED)
+    return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
