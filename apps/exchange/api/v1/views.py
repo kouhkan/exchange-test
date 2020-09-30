@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from .serializers import ExchangeSerializer
 
 
@@ -29,6 +31,21 @@ def exchange_detail(request, code):
     return Response(data=serialize.data, status=status.HTTP_200_OK)
 
 
+@swagger_auto_schema(methods=['POST'], request_body=openapi.Schema(
+    type=openapi.TYPE_OBJECT, properties={
+        'symbol_code': openapi.Schema(type=openapi.TYPE_STRING, description='max length = 12'),
+        'group': openapi.Schema(type=openapi.TYPE_STRING, description='max length = 2 -> n1 or n2'),
+        'group_industry': openapi.Schema(type=openapi.TYPE_STRING, description='max length = 128'),
+        'board': openapi.Schema(type=openapi.TYPE_STRING, description='max length = 1 -> f or m or s'),
+        'latin_symbol': openapi.Schema(type=openapi.TYPE_STRING, description='max length = 5'),
+        'latin_name': openapi.Schema(type=openapi.TYPE_STRING, description='max length = 128'),
+        'persian_symbol': openapi.Schema(type=openapi.TYPE_STRING, description='max length = 24'),
+        'persian_name': openapi.Schema(type=openapi.TYPE_STRING, description='max length = 64'),
+        'created': openapi.Schema(type=openapi.FORMAT_DATETIME, description='Automatically added'),
+        'updated': openapi.Schema(type=openapi.FORMAT_DATETIME, description='Automatically added'),
+        'status': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='True or False'),
+    }
+))
 @api_view(['POST'])
 def exchange_create(request):
     serializer = ExchangeSerializer(data=request.data)
